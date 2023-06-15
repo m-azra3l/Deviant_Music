@@ -1,0 +1,333 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Deviant_Music.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>- Deviant Music</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+ 
+      <link runat="server" rel="icon" href="Content/Images/deviant.ico" type="image/ico" /> <link runat="server" href="~/Content/Images/deviant.ico" rel="shortcut icon" type="image/x-icon" />
+        <style type="text/css">
+        ul.nav li.dropdown:hover > ul.dropdown-menu {
+            display: block;
+        }
+      
+        #formsearch{
+            display: none;
+        }
+
+        #searchbox{
+            box-shadow:none;
+            padding: 8px 14px;
+        }
+
+        #searchbox:hover{
+            box-shadow: none;
+        }
+        @media screen and (max-width:768px){
+     #descript{display:block;}
+    #clickread{display:none;}
+        #animg{width:150px;height:150px;}
+}
+
+@media screen and (min-width:768px) (max-width:1024px){
+    #descript{display:block;}
+    #clickread{display:none;}
+        #animg{width:150px;height:150px;}
+}
+        @media screen and (min-width:1025px){
+    #descript{display:none;}
+    #clickread{display:block;}
+    #sep{display:none;}
+    #sep1{display:none;}
+    #animg{width:225px;height:225px;}
+}
+        #myBtn {
+  display: none; /* Hidden by default */
+ position: fixed; /* Fixed/sticky position */
+  bottom: 15px;/* Place the button at the bottom of the page */
+ right: 20px; /* Place the button 30px from the right */
+  z-index: 99;/* Make sure it does not overlap */
+  border:none; /* Remove borders */
+  outline: none; /* Removeoutline */
+ background-color: black; /* Set a background color */
+  color: white;/* Text color */
+ cursor: pointer; /* Add a mouse pointer on hover */
+  padding:10px;/* Some padding */
+ border-radius: 10px; /* Rounded corners */
+  font-size:15px; /* Increase font size */
+}
+
+#myBtn:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
+}
+    </style>
+   <style> .footer {  position: fixed;}</style>
+
+</head>
+<body>
+    
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                   <a runat="server" href="~/" ><asp:Image  ID="Image" runat="server" ImageUrl="~/Content/Images/a.png" BorderStyle="None" /></a>
+                </div>                
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a runat="server" id="adminLink" visible="false" 
+                          href="~/Admin/AdminPage">Admin</a></li>
+                        <li><a runat="server" href="~/">Home</a></li>
+                         <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"data-toggle="dropdown">About<%--<span class="sr-only">Toggle Dropdown</span>--%></a>
+                        <ul class="dropdown-menu">
+                            <li><a runat="server" href="~/ManagedArtists">Managed Artists</a></li>
+                            <li><a runat="server" href="~/DmPersonnel">Personnel</a></li>
+                            <li><a runat="server" href="~/PricingAndServices">Pricing and Services</a></li>
+                            <li class="divider"></li>
+                            <li><a runat="server" href="~/About">Deviant Music</a></li>
+                        </ul>
+                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                    </ul>   
+                     <div class="navbar-form navbar-right" role="search" id="formsearch1">
+                    <div class="form-group">
+                        <asp:TextBox type="text" class="form-control" placeholder="Search Songs by Arist/Title" ID="searchbox1" runat="server"></asp:TextBox>
+                    </div>
+                    <asp:Button CausesValidation="false" runat="server" ID="searchbtn1" OnClick="search1_click" Text="Search" class="btn btn-primary"/>
+                </div>              
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login">Sign In</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <span class="glyphicon glyphicon-user"></span> <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText=" Sign Out" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </div>
+                <div class ="container-fluid" style="text-align:center">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="container searchbardiv" id="formsearch">
+                <div id="searchform" role="search">
+                    <div class="input-group">
+                        <asp:Textbox runat="server" type="text" id="searchbox" class="form-control" placeholder="Search Songs by Arist/Title"></asp:Textbox>    
+                        <div class="input-group-append"> 
+                    <asp:Button runat="server" CausesValidation="false" OnClick="search_click" id="searchbtn" Text="Search" class="btn btn-primary"/>      
+                       </div>
+                             </div>               
+                </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div>
+            <button type="button" class="buttonsearch" id="buttonsearch"><span class="glyphicon glyphicon-search openclosesearch"></span><span class="glyphicon glyphicon-remove openclosesearch" style="display:none"></span></button>
+        </div>
+        <asp:UpdatePanel ID="update3" runat="server">
+            <ContentTemplate>
+                        <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="glyphicon glyphicon-arrow-up"></i></button>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+     <div class="container" style="margin-top:15px;height:100px;width:100%">
+        <asp:Timer runat="server" ID="Timer1" Interval="15000"></asp:Timer>
+         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+             <Triggers>
+                 <asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" />
+             </Triggers>
+                                     <ContentTemplate>
+                                          <asp:AdRotator ID="bnAD" runat="server" CssClass="text-align:center" Height="100" Width="100%" AdvertisementFile="~/App_Data/AdB.xml" Target="_blank" />
+                                             </ContentTemplate>
+             </asp:UpdatePanel>
+     </div>
+    <div class="container"  >
+        <hr />
+        <div id="GenreMenu"  style="text-align:center">            
+            <asp:ListView ID="genreList" 
+                ItemType="Deviant_Music.Models.Genre" 
+                runat="server"
+                SelectMethod="GetGenres" >
+                <ItemTemplate>             
+                      <a href="<%#: GetRouteUrl("SongsByGenreRoute", new {Name = Item.GenreUrl}) %>" style="font-size: large; font-style: normal">
+                         <%#: Item.Name %>
+                        </a>                           
+                </ItemTemplate>
+                <ItemSeparatorTemplate>  |  </ItemSeparatorTemplate>           
+            </asp:ListView >
+        </div>
+        <hr class="d-md-none">
+        </div>
+       <div class="container body-content">
+             <section  class="blog-grid-views pt-100 pb-100" >                
+            <div class="row">
+                <div class="col-lg-9">           
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">              
+            </asp:ContentPlaceHolder>
+    </div>
+      <div class="col-md-3" style="float:left;margin-top:30px">
+                        <hr />
+                      <div class="blog-sidebar">
+                             <div class="container" style="height:100%;width:100%">
+                                 <asp:Timer ID="Timer2" runat="server" Interval="10000"></asp:Timer>
+                                 <asp:UpdatePanel ID="Update2" runat="server">
+                                     <Triggers>
+                                         <asp:AsyncPostBackTrigger ControlID="Timer2" EventName="Tick" />
+                                     </Triggers>
+                                     <ContentTemplate> 
+                                         <asp:AdRotator ID="picAD" runat="server" AdvertisementFile="~/App_Data/AdPB.xml" height="50%" Width="100%" Target="_blank" />
+                                             </ContentTemplate>
+                                 </asp:UpdatePanel>
+                         </div>
+                          <hr class="d-md-none">
+                          <div class="container">
+                              <asp:UpdatePanel ID="Updates3" runat="server">
+                                  <ContentTemplate>
+                                      <asp:ListView ID="announcelist" runat="server">
+                                       <ItemTemplate>                                       
+       <div class="prod-info-main prod-wrap clearfix" style="width:auto">
+                      <table>
+                          <tr>
+                           <td>
+                            <div class="product-image">
+                             <a href="<%#: GetRouteUrl("AnnouncementByTitleRoute", new {announcementTitle = Eval("AnnouncementUrl")}) %>" target="_blank"><img src="/Catalog/Announcement/<%#Eval("ImagePath")%>" id="animg" alt="<%#Eval("Title") %>"></a>
+                            <span id="clickread">
+                                Click image to read more
+                            </span>
+                            </div>
+                  </td>
+                    <td id="sep">&nbsp;</td>  
+                                                  <td id="sep1">&nbsp;</td>  
+    <td style="vertical-align: top; text-align:left;" id="descript">
+                  <div class="product-detail">
+                               <h5 class="name"><b>
+                                <%#Eval("Title") %></b>
+                        </h5>
+   </div>
+  <div class="description">
+      <p>Click image to read more</p>
+   </div>
+  </td>
+    </tr>
+  </table>
+</div>                                             
+                        </ItemTemplate>  
+                                      </asp:ListView>
+                                       <div class="datapager">
+        <asp:DataPager ID="DataPager1" PageSize="1" PagedControlID="announcelist" runat="server">
+            <Fields>
+               <asp:NextPreviousPagerField NextPageText="Next" PreviousPageText="Prev" ButtonCssClass="prevnext" />  
+            </Fields>
+        </asp:DataPager>
+        </div>
+                                  </ContentTemplate>
+                              </asp:UpdatePanel>
+                          </div>                                            
+                          <hr class="d-md-none">                          
+                              <div class="widget tags-widget">
+                                  <h3>Quick Links</h3>
+                                  <div>
+                                      <a runat="server" href="~/AlbumList">Albums</a>
+                                      <a runat="server" href="~/Terms">Terms Of Use And Services</a>
+                                      <a runat="server" href="~/ManagedArtists">Managed Artists</a>
+                                      <a runat="server" href="~/TopDownloads">Top Downloads</a>
+                                      <a runat="server" href="~/HelpFAQ">Help and FAQ</a>
+                                      <a href="#">Marketing</a>
+                                      <a href="#">Windows</a>
+                                      <a href="#">WordPress</a>
+                                      <a href="#">Graphics</a>
+                                  </div>
+                              </div>          
+                      </div>
+        </div>
+                </div>
+        </section> 
+           </div>     
+                    <hr />
+           
+           <footer  style="text-align: center">
+            <p>Copyright &copy; <%: DateTime.Now.Year %> - <a runat="server" href="~/">Deviant Music</a>. All rights reserved<br />Follow us on our social media platforms: </p>
+                <p><asp:ListView ID="sm" runat="server" ItemType="Deviant_Music.Models.DeviantSocial" SelectMethod="GetSocials"><ItemTemplate><a href="<%#:Item.Url%>" runat="server" target="_blank" title="<%#:Item.Name %>"><img src="/Catalog/DeviantSocial/<%#:Item.ImagePath%>" style="width:25px;height:25px" alt="<%#:Item.Name %>" /></a></ItemTemplate><ItemSeparatorTemplate>  |  </ItemSeparatorTemplate></asp:ListView></p>
+                </footer>
+       
+    </form>
+    <script>
+        
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 ||document.documentElement.scrollTop > 20) {
+                document.getElementById("myBtn").style.display = "block";
+            } else {
+                document.getElementById("myBtn").style.display= "none";
+            }
+        }
+
+        // When the user clicks on thebutton, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+                   }
+        /*function topFunction()
+        {
+            window.scrollTo(500, 0);
+        }*/
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null)
+        {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+                    topFunction();
+                }
+            });
+        };
+        $('#buttonsearch').click(function () {
+            $('#formsearch').slideToggle("fast", function () {
+                $('#content').toggleClass("moremargin");
+            });
+            $('#searchbox').focus()
+            $('.openclosesearch').toggle();
+        });
+    </script>
+</body>
+</html>

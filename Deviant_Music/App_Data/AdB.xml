@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Advertisements>
+  <Ad Id="1">
+    <ImageUrl>~/Catalog/AdB/AdBanner.jpeg</ImageUrl>
+    <NavigateUrl>https://www.facebook.com</NavigateUrl>
+    <AlternateText>Myad</AlternateText>
+    <Impressions>1</Impressions>
+  </Ad>
+  <Ad Id="2">
+    <ImageUrl>~/Catalog/AdB/banner.jpg</ImageUrl>
+    <NavigateUrl>https://www.twitter.com</NavigateUrl>
+    <AlternateText>aaaa</AlternateText>
+    <Impressions>1</Impressions>
+  </Ad>
+</Advertisements>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Advertisements>
+  <Ad Id="1">
+    <ImageUrl>~/Catalog/AdPB/WhatsApp Image 2021-01-18 at 22.12.49.jpeg</ImageUrl>
+    <NavigateUrl>https://www.facebook.com</NavigateUrl>
+    <AlternateText>Myad</AlternateText>
+    <Impressions>1</Impressions>
+  </Ad>
+  <Ad Id="2">
+    <ImageUrl>~/Catalog/AdPB/LP1.jpeg</ImageUrl>
+    <NavigateUrl>https://www.facebook.com</NavigateUrl>
+    <AlternateText>Myad</AlternateText>
+    <Impressions>1</Impressions>
+  </Ad>
+</Advertisements>
